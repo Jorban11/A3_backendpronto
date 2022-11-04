@@ -32,26 +32,16 @@ const jfuncs = {
           })
     },
     //------------------------------------------------------------------
-    checkId : async (tabela, item) => {//depende do jfuncs.getClientDb() ! 
+    checkItemInDb : async (tabela, item) => {//depende do jfuncs.getClientDb() ! 
         const { 
             rows 
         } = await client.query(`SELECT * FROM ${tabela} WHERE ${item} = ${mysql.escape(req.body.item)}`)
         //
 
-        client.end()
         return rows>0 ? True : False 
     },
-    //------------------------------------------------------------------
-    consultDb : async (tabela) => { //depende do jfuncs.getClientDb() !
-        const {
-            rows
-        } = await client.query(`SELECT * FROM ${tabela}`)
-        //
-
-        client.end()
-        return rows
-    }
 }
+
 //---------------------------------------------------------------------
 
 app.get("/usuarios", async (req,res)=>{
@@ -63,7 +53,8 @@ app.get("/usuarios", async (req,res)=>{
     //
 
     await client.end()
-    res.send(rows)    
+    res.send(rows)
+    //
 })
 
 
@@ -74,31 +65,33 @@ app.post("/usuarios", async (req,res)=>{
 
     const sql = "INSERT INTO table_users (email,nome,id) VALUES ($1,$2,$3)"   
     const { 
-        nome,
-        email 
-    } = req.body
-    //
-
-    const { 
         rows 
     } = await client.query(`SELECT * FROM table_users WHERE email = ${mysql.escape(req.body.email)}`)
 
+    const { 
+        nome,
+        email 
+    } = req.body
+    //    
+    
     if (rows.length > 0){
-        res.status(409).send({msg:`O email ${req.body.email} já está sendo utilizado!`})
+        res.status(409).send({Sistema:`O email ${req.body.email} já está sendo utilizado!`})
     }else{
         const result = await client.query(sql, [email,nome,uuidv4()])
         console.log(result)
+        res.status(201).send({Sistema:"Usuario criado com sucesso!"})
     }    
     //
       
     await client.end()
     res.end()
+    //
 })
 
 
 app.post("/eventos", (req,res)=>{
     console.log(req.body)
-    res.status(201).send({msg : "WORKING"})
+    res.status(201).send({Sistema : "WORKING"})
 })
 
 //---------------------------------------------------------------------
