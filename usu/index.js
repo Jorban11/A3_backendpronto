@@ -1,3 +1,12 @@
+// Se for alterar o banco de dados, dropar table_users 
+
+// CREATE TABLE IF NOT EXISTS table_users( 
+//     email VARCHAR(200) PRIMARY KEY,
+//    nome VARCHAR(200) NOT NULL,
+//    senha VARBINARY(100) NOT NULL,
+//    id VARCHAR(100) NOT NULL
+//   )
+
 //localhost:1000/usuarios
 require("dotenv").config();
 
@@ -32,14 +41,14 @@ const jfuncs = {
           })
     },
     //------------------------------------------------------------------
-    checkItemInDb : async (tabela, item) => {//depende do jfuncs.getClientDb() ! 
-        const { 
-            rows 
-        } = await client.query(`SELECT * FROM ${tabela} WHERE ${item} = ${mysql.escape(req.body.item)}`)
-        //
+    // checkItemInDb : async (tabela, item) => {//depende do jfuncs.getClientDb() ! 
+    //     const { 
+    //         rows 
+    //     } = await client.query(`SELECT * FROM ${tabela} WHERE ${item} = ${mysql.escape(req.body.item)}`)
+    //     //
 
-        return rows>0 ? True : False 
-    },
+    //     return rows>0 ? True : False 
+    // },
 }
 
 //---------------------------------------------------------------------
