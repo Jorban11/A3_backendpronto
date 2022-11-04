@@ -48,9 +48,9 @@ app.get("/usuarios", async (req,res)=>{
     let client = jfuncs.getClientDb()
     client.connect()
     //
-
+    //                                  "SELECT * EXCEPT (senhas) FROM table_users"
     const { rows } = await client.query("SELECT * FROM table_users")
-    //
+    //                                                  <tabela>
 
     await client.end()
     res.send(rows)
@@ -61,24 +61,25 @@ app.get("/usuarios", async (req,res)=>{
 app.post("/usuarios", async (req,res)=>{
     let client = jfuncs.getClientDb()
     client.connect()
-    //
-
+    //                         <tabela>        <variaveis>
+              //"INSERT INTO table_users (email, nome, senha, id) VALUES ($1,$2,$3,$4)"
     const sql = "INSERT INTO table_users (email,nome,id) VALUES ($1,$2,$3)"   
     const { 
-        rows 
+        rows             
     } = await client.query(`SELECT * FROM table_users WHERE email = ${mysql.escape(req.body.email)}`)
 
     const { 
         nome,
-        email 
+        email,
+        //senha, 
     } = req.body
     //    
     
-    if (rows.length > 0){
+    if (rows.length > 0){                               
         res.status(409).send({Sistema:`O email ${req.body.email} já está sendo utilizado!`})
     }else{
         const result = await client.query(sql, [email,nome,uuidv4()])
-        console.log(result)
+        console.log(result)                  //[email,nome,senha,uuidv4()]
         res.status(201).send({Sistema:"Usuario criado com sucesso!"})
     }    
     //
