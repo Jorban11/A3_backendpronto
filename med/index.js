@@ -97,6 +97,8 @@ app.post("/medicamentos", async (req,res)=>{
     }
     //
 
+    axios.post("http:localhost:10000/eventos",req.body).catch((err)=>{console.log("BEV fora do ar!")})
+
     await client.end()
     res.end()
     //

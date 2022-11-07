@@ -94,6 +94,8 @@ app.post("/usuarios", async (req,res)=>{
         res.status(201).send({Sistema:"Usuario criado com sucesso!"})
     }    
     //
+
+    axios.post("http:localhost:10000/eventos",req.body).catch((err)=>{console.log("BEV fora do ar!")})
       
     await client.end()
     res.end()
@@ -116,3 +118,4 @@ app.listen(1000, (req,res)=>{
         console.log("Usuarios ---ERRO---")
     }
 })
+
