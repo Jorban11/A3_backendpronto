@@ -132,3 +132,4 @@ app.listen(1000, async (req,res)=>{
         console.log("Usuarios ---ERRO---")
     }
 })
+

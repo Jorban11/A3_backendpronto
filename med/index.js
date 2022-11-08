@@ -97,6 +97,7 @@ app.post("/medicamentos", async (req,res)=>{
     }
     //
 
+
     try{
         axios.post("http://localhost:10000/eventos",`MED event: ${req.body}`)
     }catch(err){
@@ -104,6 +105,7 @@ app.post("/medicamentos", async (req,res)=>{
         res.status(400).send({msg:"ERROR: System stopped"})
     }
     //
+
 
     await client.end()
     res.end()
