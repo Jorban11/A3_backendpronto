@@ -60,7 +60,7 @@ app.get("/usuarios", async (req,res)=>{
     //                                  
     const { rows } = await client.query("SELECT email,nome,id FROM table_users")
     //                                                                 <tabela>
-
+    
     await client.end()
     res.send(rows)
     //
@@ -94,6 +94,16 @@ app.post("/usuarios", async (req,res)=>{
         res.status(201).send({Sistema:"Usuario criado com sucesso!"})
     }    
     //
+
+    try{
+        axios.post("http://localhost:10000/eventos",{
+            tipo: "USU evento POST"
+        })
+    }catch(err){
+        console.log("Nao foi possivel enviar evento na porta 10000: ERROR=",err)
+        res.status(400).send({msg:"ERROR: System stopped"})
+    }
+    //
       
     await client.end()
     res.end()
@@ -108,11 +118,17 @@ app.post("/eventos", (req,res)=>{
 
 //---------------------------------------------------------------------
 
-app.listen(1000, (req,res)=>{ 
+app.listen(1000, async (req,res)=>{ 
     try{
+        console.log("Nova Versão")
+        console.log("Agora usando DockerHub")
         console.log("Usuarios PORTA 1000")
-    } 
-    catch(err){
+        //
+
+        const resp = await axios.get("http://localhost:10000/eventos")
+        //console.log(resp)
+            
+    }catch(err){
         console.log("Usuarios ---ERRO---")
     }
 })

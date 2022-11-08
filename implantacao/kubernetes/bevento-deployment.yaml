@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: beventos-deployment
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+          app: beventos
+    template:
+        metadata:
+            labels:
+                app: beventos
+        spec:
+            containers:
+              - name: beventos
+                image: joaosantos7293/bev
+                resources:
+                    requests:
+                        memory: "64Mi"
+                        cpu: "250m"
+                    limits:
+                        memory: "128Mi"
+                        cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: beventos-clusterip-service
+spec:
+    selector:
+        app: beventos
+    type: ClusterIP
+    ports:
+        - name: beventos
+          protocol: TCP
+          port: 10000
+          targetPort: 10000
