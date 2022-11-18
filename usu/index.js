@@ -7,7 +7,7 @@
 //    id VARCHAR(100) NOT NULL
 //   )
 
-//localhost:1000/usuarios
+//192.168.0.26:1000/usuarios
 require("dotenv").config();
 
 const {
@@ -96,7 +96,7 @@ app.post("/usuarios", async (req,res)=>{
     //
 
     try{
-        axios.post("http://localhost:10000/eventos",{
+        axios.post("http://192.168.0.26:10000/eventos",{
             tipo: "USU evento POST"
         })
     }catch(err){
@@ -120,12 +120,11 @@ app.post("/eventos", (req,res)=>{
 
 app.listen(1000, async (req,res)=>{ 
     try{
-        console.log("Nova Versão")
-        console.log("Agora usando DockerHub")
         console.log("Usuarios PORTA 1000")
+        console.log("Chamando Beventos-Service")
         //
 
-        const resp = await axios.get("http://localhost:10000/eventos")
+        const resp = await axios.get("http://beventos-service:10000/eventos")
         //console.log(resp)
             
     }catch(err){

@@ -16,8 +16,8 @@ app.post("/eventos",(req,res)=>{
     
     eventos.push(evento)
 
-    axios.post("http://localhost:1000/eventos",evento).catch((err)=>{console.log("USU fora do ar!")})
-    axios.post("http://localhost:2000/eventos",evento).catch((err)=>{console.log("MED fora do ar!")})
+    axios.post("http://usu-clusterip:1000/eventos",evento).catch((err)=>{console.log("USU fora do ar!")})
+    axios.post("http://med-clusterip:2000/eventos",evento).catch((err)=>{console.log("MED fora do ar!")})
 
     res.status(200).send({msg:"ok"})
 })

@@ -1,11 +1,8 @@
 apiVersion: apps/v1
-
-kind: Deployment 
-
+kind: Deployment
 metadata:
-  name: usuario-deployment
+  name: usu-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: usuario
@@ -15,26 +12,22 @@ spec:
         app: usuario
     spec:
       containers:
-        - name: usuario
-          image: joaosantos7293/usuarios
-          resources:
-            requests:
-              memory: "64mi"
-              cpu: "250m"
-            limits:
-              memory: "128mi"
-              cpu: "500m"
-
----
+      - name: usuario
+        image: joaosantos7293/usu
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+--- #usu-clusterip
 apiVersion: v1
 kind: Service
 metadata:
-  name: usuario-clusterip-service
+  name: usu-clusterip
 spec:
   selector:
     app: usuario
   ports:
-   - name: usuario
-     protocol: TCP
-     port: 1000
-     targetPort: 1000
+    - name: usuario
+      protocol: TCP
+      port: 1000
+      targetPort: 1000

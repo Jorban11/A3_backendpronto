@@ -1,12 +1,12 @@
-apiVersion: apps/v1
-kind: Service  
+apiVersion: v1
+kind: Service
 metadata:
-  name: med-service
+  name: medicamento-service
 spec:
   type: NodePort
-  selector: 
+  selector:
     app: medicamento
-  ports: 
+  ports:
     - name: medicamento
       protocol: TCP
       port: 2000

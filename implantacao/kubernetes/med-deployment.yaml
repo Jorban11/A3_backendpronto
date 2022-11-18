@@ -1,11 +1,8 @@
 apiVersion: apps/v1
-
-kind: Deployment 
-
+kind: Deployment
 metadata:
   name: med-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: medicamento
@@ -15,26 +12,22 @@ spec:
         app: medicamento
     spec:
       containers:
-        - name: medicamento
-          image: joaosantos7293/medicamento
-          resources:
-            requests:
-              memory: "64mi"
-              cpu: "250m"
-            limits:
-              memory: "128mi"
-              cpu: "500m"
-
----
+      - name: medicamento
+        image: joaosantos7293/med
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+--- #med-clusterip
 apiVersion: v1
 kind: Service
 metadata:
-  name: med-clusterip-service
+  name: med-clusterip
 spec:
   selector:
     app: medicamento
   ports:
-   - name: medicamento
-     protocol: TCP
-     port: 2000
-     targetPort: 2000
+    - name: medicamento
+      protocol: TCP
+      port: 2000
+      targetPort: 2000
