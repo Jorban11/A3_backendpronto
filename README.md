@@ -13,4 +13,6 @@ João Carlos Orban dos Santos - 818117293
 
  O sistema funciona pelo docker/kubernetes para manter o servidor de pé, dependendo somente que o servidor esteja ligado e operando.
 
+ Sera usado o ElephantSQL como principal provedor de Base de Dados
  
+ Link do video:
