@@ -7,7 +7,7 @@
 //    id VARCHAR(100) NOT NULL
 //   )
 
-//192.168.0.26:1000/usuarios
+//localhost:/usuarios
 require("dotenv").config();
 
 const {
@@ -40,15 +40,6 @@ const jfuncs = {
             port:     PORT_DB
           })
     },
-    //------------------------------------------------------------------
-    // checkItemInDb : async (tabela, item) => {//depende do jfuncs.getClientDb() ! 
-    //     const { 
-    //         rows 
-    //     } = await client.query(`SELECT * FROM ${tabela} WHERE ${item} = ${mysql.escape(req.body.item)}`)
-    //     //
-
-    //     return rows>0 ? True : False 
-    // },
 }
 
 //---------------------------------------------------------------------
@@ -96,7 +87,7 @@ app.post("/usuarios", async (req,res)=>{
     //
 
     try{
-        axios.post("http://192.168.0.26:10000/eventos",{
+        axios.post("http://beventos-service:10000/eventos",{
             tipo: "USU evento POST"
         })
     }catch(err){
@@ -109,7 +100,6 @@ app.post("/usuarios", async (req,res)=>{
     res.end()
     //
 })
-
 
 app.post("/eventos", (req,res)=>{
     console.log(req.body)
